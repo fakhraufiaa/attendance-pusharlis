@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+     return redirect()->to('/admin');
 });
 
 Route::get('/dashboard', function () {
@@ -24,12 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::get('talks/create', [TalkController::class, 'create'])->name('talks.create');
     Route::post('talks', [TalkController::class, 'store'])->name('talks.store');
 
-    
+
 });
 
 Route::get('/jobs', function() {
 
-    /** 
+    /**
      * Test Jobs are working...
      * dispatch SendNotification and AddDataToDB Job
      */
@@ -54,7 +54,7 @@ Route::get('/cache', function() {
     $deployment = Cache::get('paas');
     echo "This is the result from the cache for bar...{$value} \n";
     echo "This is the result from the cache for paas...{$deployment}";
-    
+
 });
 
 require __DIR__.'/auth.php';
