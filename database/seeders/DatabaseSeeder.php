@@ -13,12 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-      
-        User::factory()
-        ->has(Talk::factory()->count(5))
-        ->create([
-            'name' => 'First Person',
-            'email' => 'thisperson@gmail.com',
+
+        $this->call([
+            FilamentAdminSeeder::class,
+            // Panggil seeder lain di sini jika ada
         ]);
     }
 }
