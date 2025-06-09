@@ -14,9 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call([
-            FilamentAdminSeeder::class,
-            // Panggil seeder lain di sini jika ada
+        User::factory()
+        ->has(Talk::factory()->count(5))
+        ->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => bcrypt('12345678'), // Ensure to use a secure password
         ]);
     }
 }
