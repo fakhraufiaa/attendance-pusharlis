@@ -12,49 +12,49 @@ Route::get('/', function () {
      return redirect()->to('/admin');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('talks/create', [TalkController::class, 'create'])->name('talks.create');
-    Route::post('talks', [TalkController::class, 'store'])->name('talks.store');
+//     Route::get('talks/create', [TalkController::class, 'create'])->name('talks.create');
+//     Route::post('talks', [TalkController::class, 'store'])->name('talks.store');
 
 
-});
+// });
 
-Route::get('/jobs', function() {
+// Route::get('/jobs', function() {
 
-    /**
-     * Test Jobs are working...
-     * dispatch SendNotification and AddDataToDB Job
-     */
+//     /**
+//      * Test Jobs are working...
+//      * dispatch SendNotification and AddDataToDB Job
+//      */
 
-    echo "Your jobs are being dispatching....";
-    Bus::chain([
-        new AddDatatoDB,
-        new SendNotification
-    ])->dispatch();
-});
+//     echo "Your jobs are being dispatching....";
+//     Bus::chain([
+//         new AddDatatoDB,
+//         new SendNotification
+//     ])->dispatch();
+// });
 
-Route::get('/cache', function() {
+// Route::get('/cache', function() {
 
-    /**
-     * Testing your cache infra is working...
-     */
-    echo "Storing inside the redis cache...\n";
-    Cache::store('redis')->put('bar', 'baz', 600); // 10 Minutes
-    Cache::put('paas', 'railway'); // store indefinitely
+//     /**
+//      * Testing your cache infra is working...
+//      */
+//     echo "Storing inside the redis cache...\n";
+//     Cache::store('redis')->put('bar', 'baz', 600); // 10 Minutes
+//     Cache::put('paas', 'railway'); // store indefinitely
 
-    $value = Cache::get('bar');
-    $deployment = Cache::get('paas');
-    echo "This is the result from the cache for bar...{$value} \n";
-    echo "This is the result from the cache for paas...{$deployment}";
+//     $value = Cache::get('bar');
+//     $deployment = Cache::get('paas');
+//     echo "This is the result from the cache for bar...{$value} \n";
+//     echo "This is the result from the cache for paas...{$deployment}";
 
-});
+// });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
