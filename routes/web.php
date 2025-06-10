@@ -13,18 +13,19 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/whoami', function () {
-    $user = auth()->user();
-
-    if (!$user) {
-        return 'Not logged in';
+    if (!auth()->check()) {
+        return response()->json(['message' => 'Not logged in'], 401);
     }
 
-    return [
+    $user = auth()->user();
+
+    return response()->json([
         'user' => $user->only(['id', 'name', 'email']),
-        'roles' => $user->getRoleNames(),
-        'permissions' => $user->getAllPermissions()->pluck('name'),
-    ];
+        'roles' => method_exists($user, 'getRoleNames') ? $user->getRoleNames() : 'No getRoleNames method',
+        'permissions' => method_exists($user, 'getAllPermissions') ? $user->getAllPermissions()->pluck('name') : 'No getAllPermissions method',
+    ]);
 });
+
 
 
 // Route::get('/admin-test', function () {
