@@ -69,7 +69,6 @@ return [
         'enabled' => true,
 
         'pages' => [
-
         ],
 
         'widgets' => [
