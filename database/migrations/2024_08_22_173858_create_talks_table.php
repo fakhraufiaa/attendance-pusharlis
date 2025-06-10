@@ -12,16 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('talks', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('length');
-            $table->string('type');
-            $table->text('abstract');
-            $table->text('organizer_notes');
-            $table->foreignIdFor(User::class);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('talks')) {
+            Schema::create('talks', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('length');
+                $table->string('type');
+                $table->text('abstract');
+                $table->text('organizer_notes');
+                $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
