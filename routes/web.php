@@ -12,9 +12,24 @@ use Illuminate\Support\Facades\Route;
 //      return redirect()->to('/admin');
 // });
 
-Route::get('/admin-test', function () {
-    return 'You reached admin route!';
+Route::get('/whoami', function () {
+    $user = auth()->user();
+
+    if (!$user) {
+        return 'Not logged in';
+    }
+
+    return [
+        'user' => $user->only(['id', 'name', 'email']),
+        'roles' => $user->getRoleNames(),
+        'permissions' => $user->getAllPermissions()->pluck('name'),
+    ];
 });
+
+
+// Route::get('/admin-test', function () {
+//     return 'You reached admin route!';
+// });
 
 
 // Route::get('/dashboard', function () {
