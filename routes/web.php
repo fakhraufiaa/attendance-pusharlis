@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', fn () => redirect('/admin'));
 
-Route::get('/whoami', function () {
-    if (!auth()->check()) {
-        return response()->json(['message' => 'Not logged in'], 401);
-    }
+// Route::get('/whoami', function () {
+//     if (!auth()->check()) {
+//         return response()->json(['message' => 'Not logged in'], 401);
+//     }
 
-    $user = auth()->user();
+//     $user = auth()->user();
 
-    return response()->json([
-        'user' => $user->only(['id', 'name', 'email']),
-        'roles' => method_exists($user, 'getRoleNames') ? $user->getRoleNames() : 'No getRoleNames method',
-        'permissions' => method_exists($user, 'getAllPermissions') ? $user->getAllPermissions()->pluck('name') : 'No getAllPermissions method',
-    ]);
-});
+//     return response()->json([
+//         'user' => $user->only(['id', 'name', 'email']),
+//         'roles' => method_exists($user, 'getRoleNames') ? $user->getRoleNames() : 'No getRoleNames method',
+//         'permissions' => method_exists($user, 'getAllPermissions') ? $user->getAllPermissions()->pluck('name') : 'No getAllPermissions method',
+//     ]);
+// });
 
 
 
