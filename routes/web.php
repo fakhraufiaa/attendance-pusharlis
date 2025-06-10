@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-     return redirect()->to('/admin');
+// Route::get('/', function () {
+//      return redirect()->to('/admin');
+// });
+
+Route::get('/admin-test', function () {
+    return 'You reached admin route!';
 });
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
