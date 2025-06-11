@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', fn () => redirect('/admin'));
+Route::get('/', fn () => redirect('/admin'));
 
 Route::get('/check-permission', function () {
     $user = Auth::user();
