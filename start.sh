@@ -5,6 +5,7 @@
 #!/bin/bash
 
 # Jalankan perintah setup
+php artisan optimize:clear
 php artisan migrate --force
 php artisan shield:install
 php artisan shield:super-admin
