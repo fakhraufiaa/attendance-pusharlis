@@ -13,7 +13,7 @@ Route::get('/', fn () => redirect('/admin'));
 
 
 Route::get('/check-user', function () {
-    $user = \App\Models\User::where('email', 'admin@example.com')->first();
+    $user = \App\Models\User::where('email', 'test@example.com')->first();
 
     if (! $user) return 'User tidak ditemukan';
 
