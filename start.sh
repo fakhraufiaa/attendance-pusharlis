@@ -1,19 +1,32 @@
 #!/bin/bash
-# Make sure this file has executable permissions, run `chmod +x start.sh`
-# Run migrations, set up nginx conf and run nginx
-# Jalankan migrasi dan setup Shield
-#!/bin/bash
+# File ini akan dijalankan saat start container Railway
 
-# Jalankan perintah setup
+# Pastikan permission benar
+chmod -R 775 storage bootstrap/cache
+
+# Bersihkan dan siapkan ulang cache Laravel
 php artisan optimize:clear
-php artisan migrate --force
-php artisan shield:install
-php artisan shield:super-admin
-php artisan shield:generate
 
-# Start server Laravel (via Nginx & PHP-FPM)
+# Jalankan migrasi
+php artisan migrate --force
+
+# Shield setup: hanya pertama kali deploy yang perlu install
+# Cek jika folder sudah ada, skip install
+if [ ! -d "app/Policies" ]; then
+  php artisan shield:install
+  php artisan shield:generate
+fi
+
+# Jadikan user pertama sebagai super-admin (pastikan ada user dulu)
+php artisan shield:super-admin || true
+
+# Generate config cache terakhir (setelah install shield)
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan event:cache
+
+# Jalankan nginx & php-fpm
 node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf
 php-fpm -y /assets/php-fpm.conf &
 nginx -c /nginx.conf
-
-# php artisan migrate --force && node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && (php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)

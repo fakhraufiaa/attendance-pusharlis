@@ -1,14 +1,16 @@
 #!/bin/bash
-# Make sure this file has executable permissions, run `chmod +x build.sh`
 
-# Build assets using NPM
+# Build assets (jika ada, misal pakai Vite)
 npm run build
 
-# Clear cache
+# Clear semua cache
 php artisan optimize:clear
 
-# Cache the various components of the Laravel application
+# Cache ulang config, routes, dll
 php artisan config:cache
 php artisan event:cache
 php artisan route:cache
 php artisan view:cache
+
+# Pastikan permission benar (optional tapi aman)
+chmod -R 775 storage bootstrap/cache
