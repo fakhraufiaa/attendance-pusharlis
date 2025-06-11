@@ -11,6 +11,9 @@ use App\Models\User;
 
 Route::get('/', fn () => redirect('/admin'));
 
+Route::get('/check', function () {
+    dd(auth()->user(), session()->all());
+});
 
 Route::get('/check-user', function () {
     $user = \App\Models\User::where('email', 'test@example.com')->first();
