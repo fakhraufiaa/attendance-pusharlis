@@ -7,8 +7,22 @@ use App\Jobs\SendNotification;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 Route::get('/', fn () => redirect('/admin'));
+
+
+Route::get('/check-user', function () {
+    $user = \App\Models\User::where('email', 'admin@example.com')->first();
+
+    if (! $user) return 'User tidak ditemukan';
+
+    return [
+        'roles' => $user->getRoleNames(),
+        'permissions' => $user->getAllPermissions()->pluck('name'),
+        'can_access_admin' => $user->can('view_admin'), // atau permission dashboard
+    ];
+});
 
 Route::get('/check-permission', function () {
     $user = Auth::user();
